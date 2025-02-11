@@ -1,0 +1,529 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* Background for falling hearts */
+.falling-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Falling hearts animation */
+.heart {
+  position: absolute;
+  top: -10%;
+  left: calc(5% + 90% * var(--i));
+  font-size: 2rem;
+  opacity: 0;
+  animation: fall 5s infinite ease-in-out, fade 5s infinite ease-in-out;
+}
+
+.heart-0 {
+  animation-delay: 0s;
+}
+
+.heart-1 {
+  animation-delay: 1s;
+}
+
+.heart-2 {
+  animation-delay: 2s;
+}
+
+.heart-3 {
+  animation-delay: 3s;
+}
+
+/* Falling animation */
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+/* Background Gradient Animation */
+.wedding-card {
+  background: linear-gradient(45deg, rgba(255, 182, 193, 0.7), rgba(255, 105, 180, 0.5), rgba(255, 192, 203, 0.3));
+  background-size: 400% 400%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* Smooth gradient shift animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Hover Effect for Cards */
+.wedding-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(255, 105, 180, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animated Arrow Hover */
+button:hover {
+  background-color: #ff69b4; /* Hot Pink */
+  transform: scale(1.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Active Dot Style */
+button.wedding-dot-active {
+  background-color: #ff69b4;
+  transition: background-color 0.3s ease;
+}
+
+button.wedding-dot-inactive:hover {
+  background-color: #ff85b5;
+}
+
+/* Transition Effect for Buttons and Dots */
+button,
+.wedding-dot-active,
+.wedding-dot-inactive {
+  transition: all 0.3s ease;
+}
+
+
+/* Fading animation */
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Event card animation */
+.event-card {
+  position: relative;
+  animation: card-hover 3s infinite;
+}
+
+@keyframes card-hover {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Heart spinning */
+.animate-heart-spin {
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video fills the container */
+}
+html {
+  scroll-behavior: smooth;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  animation: sparkle 3s linear infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(0.8) translate(-50%, -50%);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2) translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes sparkle-fast {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.5);
+  }
+}
+
+.animate-sparkle-slow {
+  animation: sparkle 3s infinite ease-in-out;
+}
+
+.animate-sparkle-fast {
+  animation: sparkle-fast 2s infinite ease-in-out;
+}
+
+.sparkle-text {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.sparkle-card {
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.5), 0 0 30px rgba(255, 182, 193, 0.4);
+}
+
+.sparkle-button {
+  box-shadow: 0 0 10px rgba(255, 223, 0, 0.8), 0 0 20px rgba(255, 223, 0, 0.6);
+}
+
+
+
+.heart-icon {
+  background: url('./components/wedding.png') no-repeat center;
+  background-size: contain;
+}
+
+
+/* Add this to your existing index.css file or within the component's CSS */
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* Add this to your existing index.css file or within the component's CSS */
+/* Add this to your existing index.css file or within the component's CSS */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Prevent extra space */
+}
+
+
+#hero, #schedule, #footer #loactions {
+ 
+  height: 100vh;
+  overflow: hidden; /* Ensure no extra scrollbars */
+  padding-right: 8px; 
+   /* Make sure sections occupy the full height */
+}
+
+/* Add this to your CSS file or inline styles */
+.scroll-hidden {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+#schedule .grid {
+  gap: 1rem; /* Reduce gaps for compact alignment */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+@media (max-width: 430px) {
+  #hero, #schedule, #footer #locations {
+    padding-right: 0; /* On smaller screens, no extra padding */
+  }
+}
+
+
+/* Adjust the sections to make sure no space is wasted */
+#hero, #schedule, #footer #locations {
+  padding-right: 5px; /* Add padding equivalent to the width of the scrollbar */
+}
+
+@keyframes scrollGallery {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.gallery-container {
+  display: flex;
+  overflow: hidden;
+}
+.quote-container {
+  position: relative;
+  text-align: center;
+  max-width: 80%; /* Default max-width */
+  margin: 0 auto;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .quote-container {
+    max-width: 95%; /* Wider on smaller screens */
+    padding: 20px; /* Reduce padding on smaller screens */
+  }
+}
+.quote-text {
+  font-size: 1.5rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: #d26db4; /* Soft pink color for love theme */
+  line-height: 1.6;
+  letter-spacing: 1px;
+  transform: translateY(30px);
+  animation: slideUp 1.5s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.gallery-items {
+  display: flex;
+  gap: 16px;
+  animation: scroll 20s linear infinite;
+}
+
+
+
+.scope {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  animation: slid 30s linear infinite;
+}
+
+
+.scope span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(var(--i) * 45deg)) translateZ(350px);
+}
+.scope span img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  transition: 2s;
+}
+.scope span:hover img {
+  transform: translateY(-50px) scale(1.7);
+}
+@keyframes slid {
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(360deg);
+  }
+}
+
+.gallery-items.paused {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+.quote-container:hover {
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.quote-text:hover {
+  color: #ff6fa1;
+  transition: color 0.3s ease;
+}
+
+
+.gallery-items {
+  display: flex;
+  animation: scrollGallery 80s linear infinite;
+}
+/* Modal Style */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+/* Add the paused class to pause the animation */
+.gallery-items.paused {
+  animation-play-state: paused !important; /* Pauses the scroll animation */
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+
+.modal img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Add a class to show the modal */
+.modal.show {
+  display: flex;
+}
+
+.gallery-item img {
+  cursor: pointer;
+}
+
+
+.gallery-item {
+  min-width: 250px;
+  margin-right: 16px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.gallery-container:hover .gallery-items,
+.gallery-container:focus-within .gallery-items {
+  animation-play-state: paused;
+}
+
+
+.dove-icon {
+  background: url('./components/wedding.png') no-repeat center;
+  background-size: contain;
+  color: black;
+}
+
+.flower-icon {
+  background: url('./components/wedding.png') no-repeat center;
+  background-size: contain;
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 3s infinite ease-in-out;
+}
+
+/* Additional Sparkling Effects */
+.sparkle-text {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.sparkle-card {
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.5), 0 0 30px rgba(255, 182, 193, 0.4);
+}
+
+.sparkle-button {
+  box-shadow: 0 0 10px rgba(255, 223, 0, 0.8), 0 0 20px rgba(255, 223, 0, 0.6);
+}
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
