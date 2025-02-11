@@ -232,8 +232,8 @@ function LandingPage() {
         <div className="fixed bottom-4 right-4 bg-pink-500 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg border-2 border-pink-300 ">
           💑 Wedding in: {timeLeft}
         </div>
-        <div className="absolute bottom-12 left-5 text-pink-300 text-lg font-bold animate-bounce flex items-center gap-1">
-          <p>Scroll Downs 👇</p>
+        <div className="absolute bottom-20 left-5 text-pink-300 text-lg font-bold animate-bounce flex items-center gap-1">
+          <p>Scroll Down 👇</p>
         </div>
 
         <div
@@ -435,8 +435,8 @@ function LandingPage() {
             Click Me
           </button>
         </div>
-        <div className="absolute bottom-12 left-5 text-pink-800 text-sm font-semibold animate-bounce flex items-center gap-1">
-          <p>Scroll Downs 👇</p>
+        <div className="absolute bottom-20 left-5 text-pink-800 text-sm font-semibold animate-bounce flex items-center gap-1">
+          <p>Scroll Down 👇</p>
         </div>
 
 
