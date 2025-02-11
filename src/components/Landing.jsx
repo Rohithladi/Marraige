@@ -233,7 +233,7 @@ function LandingPage() {
           💑 Wedding in: {timeLeft}
         </div>
         <div className="absolute bottom-12 left-5 text-pink-300 text-lg font-bold animate-bounce flex items-center gap-1">
-          <p>Scroll Down 👇</p>
+          <p>Scroll Downs 👇</p>
         </div>
 
         <div
@@ -436,7 +436,7 @@ function LandingPage() {
           </button>
         </div>
         <div className="absolute bottom-12 left-5 text-pink-800 text-sm font-semibold animate-bounce flex items-center gap-1">
-          <p>Scroll Down 👇</p>
+          <p>Scroll Downs 👇</p>
         </div>
 
 
