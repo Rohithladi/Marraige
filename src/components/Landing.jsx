@@ -43,7 +43,6 @@ import A36 from '../components/images/36.jpg';
 import Tejaswi from '../components/images/Tejaswis.jpg';
 import Bride from '../components/images/Bride.jpg';
 import Groom from '../components/images/Groom.jpg';
-
 import Family from '../components/images/Family.jpg';
 import Anand from '../components/images/Sangeet.jpg';
 
@@ -57,7 +56,7 @@ function LandingPage() {
     A1, A2, A3, A4, A5, A6, A7, A8, A9, A10,
     A11, A12, A13, A14, A15, A16, A17, A18, A20,
     A21, A22, A23, A24, A25, A26, A27, A28, A29, A30,
-    A31, A32, A33, A34, A35, Family,A36,
+    A31, A32, A33, A34, A35, Family, A36,
   ];
   const scrollRef = useRef(null);
 
@@ -376,15 +375,15 @@ function LandingPage() {
               { image: A33 },
               { image: A34 },
               { image: A35 },
+              
 
 
             ].map((photo, index) => (
               <div
-              key={index}
-              className={`gallery-item flex items-center justify-center bg-white-100 rounded-lg overflow-hidden ${
-                photo.image === A6 ? "col-span-2 md:col-span-3" : ""
-              }`}
-            >                <img
+                key={index}
+                className={`gallery-item flex items-center justify-center bg-white-100 rounded-lg overflow-hidden ${photo.image === A6 ? "col-span-2 md:col-span-3" : ""
+                  }`}
+              >                <img
                   src={photo.image}
                   alt={photo.title}
                   className="w-full rounded-lg shadow-lg"
@@ -469,7 +468,7 @@ function LandingPage() {
               src={Bride}
               alt="Bride's Family"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModal(Bride)}
+              onClick={() => openModals(Bride)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">
               Bride's Family
@@ -480,7 +479,7 @@ function LandingPage() {
               src={Groom}
               alt="Groom's Family"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModal(Groom)}
+              onClick={() => openModals(Groom)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">
               Groom's Family
@@ -596,6 +595,7 @@ function LandingPage() {
               src={Tejaswi}
               alt="Wedding Ceremony Venue"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
+              onClick={() => openModals(Tejaswi)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">Hotel Tejaswi Grounds</p>
 
@@ -615,7 +615,7 @@ function LandingPage() {
               src={Anand}
               alt="Sangeet Night"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              
+              onClick={() => openModals(Anand)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">Sangeet Night(At Wedding Venue)</p>
             <a
