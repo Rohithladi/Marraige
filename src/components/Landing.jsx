@@ -39,7 +39,10 @@ import A32 from '../components/images/32.jpg';
 import A33 from '../components/images/33.jpg';
 import A34 from '../components/images/34.jpg';
 import A35 from '../components/images/35.jpg';
+import A36 from '../components/images/36.jpg';
 import Tejaswi from '../components/images/Tejaswis.jpg';
+import Bride from '../components/images/Bride.jpg';
+import Groom from '../components/images/Groom.jpg';
 
 import Family from '../components/images/Family.jpg';
 import Anand from '../components/images/Sangeet.jpg';
@@ -54,7 +57,7 @@ function LandingPage() {
     A1, A2, A3, A4, A5, A6, A7, A8, A9, A10,
     A11, A12, A13, A14, A15, A16, A17, A18, A20,
     A21, A22, A23, A24, A25, A26, A27, A28, A29, A30,
-    A31, A32, A33, A34, A35, Family
+    A31, A32, A33, A34, A35, Family,A36,
   ];
   const scrollRef = useRef(null);
 
@@ -63,14 +66,13 @@ function LandingPage() {
 
   const [textVisible, setTextVisible] = useState(true);
   const [timeLeft, setTimeLeft] = useState("");
-  // JavaScript to enable carousel navigation
 
 
   const [currentImage, setCurrentImage] = useState(null);
 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
+  const [modalImage, setModalImage] = useState("");
 
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
@@ -117,11 +119,11 @@ function LandingPage() {
     return () => clearInterval(scrollInterval);
   }, []);
 
-  const handleImageClick = (image) => {
-    setModalImage(image);
+  const handleImageClick = (imageSrc) => {
+    setModalImage(imageSrc);
     setIsModalOpen(true);
-    setIsPaused(true);
   };
+
   useEffect(() => {
     const gallery = galleryRef.current;
 
@@ -161,9 +163,10 @@ function LandingPage() {
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setIsModalOpen(false);
     setModalImage("");
   };
+
 
   const openModals = (image) => {
     setCurrentImage(image);
@@ -332,7 +335,7 @@ function LandingPage() {
         </div>
 
         <h2 className="text-3xl font-extrabold text-center text-pink-700 mb-12 flex items-center justify-center">
-          Wedding Photos Gallery
+           Photo Gallery
         </h2>
 
         {/* Carousel Layout */}
@@ -372,12 +375,16 @@ function LandingPage() {
               { image: A32 },
               { image: A33 },
               { image: A34 },
-              { image: A35 }
+              { image: A35 },
 
 
             ].map((photo, index) => (
-              <div key={index} className="gallery-item relative">
-                <img
+              <div
+              key={index}
+              className={`gallery-item flex items-center justify-center bg-white-100 rounded-lg overflow-hidden ${
+                photo.image === A6 ? "col-span-2 md:col-span-3" : ""
+              }`}
+            >                <img
                   src={photo.image}
                   alt={photo.title}
                   className="w-full rounded-lg shadow-lg"
@@ -385,37 +392,29 @@ function LandingPage() {
                   onMouseEnter={() => setIsPaused(true)} // Pause on hover
                   onMouseLeave={() => setIsPaused(false)} // Resume on hover out
                 />
-                <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-xl font-semibold">{photo.title}</p>
-                </div>
-              </div>
-            ))}
 
-            {/* Duplicating items for seamless scroll */}
-            {[
-
-
-            ].map((photo, index) => (
-              <div key={index + 12} className="gallery-item relative">
-                <img
-                  src={photo.image}
-                  alt={photo.title}
-                  className="w-full rounded-lg shadow-lg"
-                  onClick={() => handleImageClick(photo.image)} // Click to open the modal
-                />
-                <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-xl font-semibold">{photo.title}</p>
-                </div>
               </div>
             ))}
           </div>
 
         </div>
         {isModalOpen && (
-          <div className="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-            <div className="modal-content relative bg-white p-5 rounded-lg">
-              <button onClick={closeModal} className="absolute top-0 right-0 text-xl">X</button>
-              <img src={modalImage} alt="Full" className="w-auto h-auto max-w-full max-h-screen" />
+          <div
+            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+            onClick={closeModal} // Close modal when clicking outside the image
+          >
+            <div className="relative bg-white p-5 rounded-lg max-w-3xl">
+              <button
+                onClick={closeModal}
+                className="absolute top-2 right-2 text-xl font-bold text-gray-800 bg-gray-200 rounded-full px-3 py-1 hover:bg-gray-400"
+              >
+                ✕
+              </button>
+              <img
+                src={modalImage}
+                alt="Expanded view"
+                className="w-full max-h-[90vh] object-contain rounded-lg"
+              />
             </div>
           </div>
         )}
@@ -467,10 +466,10 @@ function LandingPage() {
         <div className="flex flex-wrap justify-center items-center gap-6 mt-8 px-4">
           <div className="flex-1 max-w-[45%] sm:max-w-[30%] cursor-pointer">
             <img
-              src={Family}
+              src={Bride}
               alt="Bride's Family"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModal(Family)}
+              onClick={() => openModal(Bride)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">
               Bride's Family
@@ -478,10 +477,10 @@ function LandingPage() {
           </div>
           <div className="flex-1 max-w-[45%] sm:max-w-[30%] cursor-pointer">
             <img
-              src={Family}
+              src={Groom}
               alt="Groom's Family"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModal(Family)}
+              onClick={() => openModal(Groom)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">
               Groom's Family
@@ -494,6 +493,9 @@ function LandingPage() {
           "A successful marriage requires falling in love many times, always with
           the same person."
         </p>
+        <div className="absolute bottom-20 left-5 text-white text-sm font-semibold animate-bounce flex items-center gap-1">
+          <p>Scroll Down 👇</p>
+        </div>
 
         {/* Modal */}
         {showModal && (
@@ -594,7 +596,6 @@ function LandingPage() {
               src={Tejaswi}
               alt="Wedding Ceremony Venue"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModal(Tejaswi)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">Hotel Tejaswi Grounds</p>
 
@@ -614,9 +615,9 @@ function LandingPage() {
               src={Anand}
               alt="Sangeet Night"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModal(Anand)}
+              
             />
-            <p className="mt-3 text-base font-medium text-pink-900">Sangeet Night</p>
+            <p className="mt-3 text-base font-medium text-pink-900">Sangeet Night(At Wedding Venue)</p>
             <a
               href="https://maps.app.goo.gl/vv6stV4A4W2de2q56"
               target="_blank"
@@ -632,11 +633,11 @@ function LandingPage() {
             Come with your family and bless the couple with your love and best wishes.
           </p>
           <p className="text-sm mt-2 text-white-400 font-semibold">
-  For any queries, call  
-  <a href="tel:+917008482968" className="bg-pink-600 text-white px-2 py-1 rounded-lg shadow-lg hover:bg-pink-700 transition">
-    7008482968
-  </a>
-</p>
+            For any queries, call
+            <a href="tel:+917008482968" className="bg-pink-600 text-white px-2 py-1 rounded-lg shadow-lg hover:bg-pink-700 transition">
+              7008482968
+            </a>
+          </p>
 
         </div>
 
