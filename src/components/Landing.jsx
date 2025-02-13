@@ -73,7 +73,7 @@ function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal] = useState(false);
   useEffect(() => {
     const endOfMarch15 = new Date(Date.UTC(2025, 2, 15, 0, 0, 0)); // March 15, 2025, 00:00 UTC
 
@@ -156,10 +156,7 @@ function LandingPage() {
 
     return () => clearInterval(scrollInterval);
   }, []);
-  const openModal = (image) => {
-    setModalImage(image);
-    setShowModal(true);
-  };
+
 
   const closeModal = () => {
     setIsModalOpen(false);
