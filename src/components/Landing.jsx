@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../index.css';
-import weddingVideo from '../components/videoplayback (2).mp4';
+import weddingVideo from '../components/11mb.mp4';
 import { FaImage, FaHeart, } from 'react-icons/fa';
 import engagementRing from '../components/file.png';  // Adjust the path as needed
 // import ReceptionImage from '../components/wedding.png';
@@ -214,6 +214,7 @@ function LandingPage() {
             autoPlay
             loop
             muted
+            preload="metadata"
             className="absolute top-0 left-0 w-full h-full object-cover"
           >
             <source src={weddingVideo} type="video/mp4" />
