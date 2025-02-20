@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../index.css';
-import weddingVideo from '../components/11mb.mp4';
+import weddingVideo from '../components/Original.mp4';
 import { FaImage, FaHeart, } from 'react-icons/fa';
-import engagementRing from '../components/file.png';  // Adjust the path as needed
-// import ReceptionImage from '../components/wedding.png';
+import engagementRing from '../components/file.png';  
 
 import A1 from '../components/images/1.jpg';
 import A2 from '../components/images/2.jpg';
