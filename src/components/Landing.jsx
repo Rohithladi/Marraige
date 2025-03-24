@@ -63,7 +63,6 @@ function LandingPage() {
   const [isPaused, setIsPaused] = useState(false);  // To track if the animation is paused
 
   const [textVisible, setTextVisible] = useState(true);
-  const [timeLeft, setTimeLeft] = useState("");
 
 
   const [currentImage, setCurrentImage] = useState(null);
@@ -73,31 +72,7 @@ function LandingPage() {
   const [modalImage, setModalImage] = useState("");
 
   const [showModal] = useState(false);
-  useEffect(() => {
-    const endOfMarch15 = new Date(Date.UTC(2025, 2, 15, 0, 0, 0)); // March 15, 2025, 00:00 UTC
-
-    const updateCountdown = () => {
-      const now = new Date().getTime();
-      const difference = endOfMarch15.getTime() - now;
-
-      if (difference <= 0) {
-        setTimeLeft("💖 It's Wedding Time! 🎉");
-        return;
-      }
-
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-    };
-
-    updateCountdown(); // Initial call
-    const interval = setInterval(updateCountdown, 1000);
-
-    return () => clearInterval(interval); // Cleanup
-  }, []);
+  
 
 
   useEffect(() => {
@@ -228,9 +203,9 @@ function LandingPage() {
         {/* Hero Content */}
 
 
-        <div className="fixed bottom-4 right-4 bg-pink-500 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg border-2 border-pink-300 ">
-          💑 Wedding in: {timeLeft}
-        </div>
+        <div className="fixed bottom-4 right-4 bg-pink-500 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg border-2 border-pink-300">
+  💍 Forever Began: March 15, 2025
+</div>
         <div className="absolute bottom-20 left-5 text-pink-300 text-lg font-bold animate-bounce flex items-center gap-1">
           <p>Scroll Down 👇</p>
         </div>
@@ -293,8 +268,7 @@ function LandingPage() {
           </div>
           <div className=" inset-0 grid place-items-center"> {/* Centering container */}
             <div className="mt-auto bg-pink-500 text-white text-sm font-semibold px-6 py-4 rounded-lg shadow-lg border-2 border-pink-300">
-              💑 Wedding in: {timeLeft}
-            </div>
+            💍 Forever Began: March 15, 2025            </div>
           </div>
 
           {/* Falling Hearts */}
