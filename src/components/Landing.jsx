@@ -157,6 +157,7 @@ function LandingPage() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setShowModal(false);
     setModalImage("");
   };
 
