@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import '../index.css';
 import weddingVideo from '../components/Original.mp4';
 import { FaImage, FaHeart, } from 'react-icons/fa';
-import engagementRing from '../components/file.png';  
+import engagementRing from '../components/file.png';  // Adjust the path as needed
+// import ReceptionImage from '../components/wedding.png';
 
 import A1 from '../components/images/1.jpg';
 import A2 from '../components/images/2.jpg';
@@ -42,6 +43,7 @@ import A36 from '../components/images/36.jpg';
 import Tejaswi from '../components/images/Tejaswis.jpg';
 import Bride from '../components/images/Bride.jpg';
 import Groom from '../components/images/Groom.jpg';
+
 import Family from '../components/images/Family.jpg';
 import Anand from '../components/images/Sangeet.jpg';
 
@@ -63,6 +65,7 @@ function LandingPage() {
   const [isPaused, setIsPaused] = useState(false);  // To track if the animation is paused
 
   const [textVisible, setTextVisible] = useState(true);
+  const [timeLeft, setTimeLeft] = useState("");
 
 
   const [currentImage, setCurrentImage] = useState(null);
@@ -71,25 +74,58 @@ function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
 
-  const [showModal] = useState(false);
-  
+  const [showModal, setShowModal] = useState(false);
+
+  // Counts UP from the wedding date (March 15, 2025) — shows time elapsed since that day, and keeps going forever
+  useEffect(() => {
+    const startDate = new Date(Date.UTC(2025, 2, 15, 0, 0, 0)); // March 15, 2025, 00:00 UTC
+
+    const updateCounter = () => {
+      const now = new Date().getTime();
+      const difference = now - startDate.getTime(); // time elapsed since the wedding day
+
+      if (difference < 0) {
+        setTimeLeft("💖 Getting Ready! 🎉");
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+    };
+
+    updateCounter(); // Initial call
+    const interval = setInterval(updateCounter, 1000); // keeps counting up every second, indefinitely
+
+    return () => clearInterval(interval); // Cleanup
+  }, []);
 
 
+  // Smooth footer marquee scroll using requestAnimationFrame (replaces the old duplicated setInterval version)
   useEffect(() => {
     const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
 
     let scrollAmount = 0;
-    const scrollInterval = setInterval(() => {
-      scrollAmount += 1; // Speed of scrolling
+    let animationFrameId;
+
+    const scrollStep = () => {
+      scrollAmount += 0.5; // smaller increment = smoother motion
       scrollContainer.scrollLeft = scrollAmount;
 
       // Reset scroll to create seamless loop
       if (scrollAmount >= scrollContainer.scrollWidth / 2) {
         scrollAmount = 0;
       }
-    }, 16); // Smooth scrolling at ~60fps
+      animationFrameId = requestAnimationFrame(scrollStep);
+    };
 
-    return () => clearInterval(scrollInterval);
+    animationFrameId = requestAnimationFrame(scrollStep);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
   const handleImageClick = (imageSrc) => {
@@ -109,28 +145,15 @@ function LandingPage() {
       }
     };
 
-    const interval = setInterval(checkAndLoop, 100); // Check every 100ms
+    const interval = setInterval(checkAndLoop, 50); // Tighter check for smoother looping
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
 
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-
-    let scrollAmount = 0;
-    const scrollInterval = setInterval(() => {
-      scrollAmount += 1; // Speed of scrolling
-      scrollContainer.scrollLeft = scrollAmount;
-
-      // Reset scroll to create seamless loop
-      if (scrollAmount >= scrollContainer.scrollWidth / 2) {
-        scrollAmount = 0;
-      }
-    }, 16); // Smooth scrolling at ~60fps
-
-    return () => clearInterval(scrollInterval);
-  }, []);
-
+  const openModal = (image) => {
+    setModalImage(image);
+    setShowModal(true);
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -174,7 +197,7 @@ function LandingPage() {
 
   return (
 
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory font-sans scroll-hidden">
+    <div className="h-screen overflow-y-scroll snap-y snap-mandatory font-sans scroll-hidden scroll-smooth">
 
       {/* Section 1: Hero Section */}
       <div
@@ -188,7 +211,6 @@ function LandingPage() {
             autoPlay
             loop
             muted
-            preload="metadata"
             className="absolute top-0 left-0 w-full h-full object-cover"
           >
             <source src={weddingVideo} type="video/mp4" />
@@ -203,9 +225,9 @@ function LandingPage() {
         {/* Hero Content */}
 
 
-        <div className="fixed bottom-4 right-4 bg-pink-500 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg border-2 border-pink-300">
-  💍 Forever Began: March 15, 2025
-</div>
+        <div className="fixed bottom-4 right-4 bg-pink-500 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg border-2 border-pink-300 ">
+          💑 Forever Began: {timeLeft}
+        </div>
         <div className="absolute bottom-20 left-5 text-pink-300 text-lg font-bold animate-bounce flex items-center gap-1">
           <p>Scroll Down 👇</p>
         </div>
@@ -268,7 +290,8 @@ function LandingPage() {
           </div>
           <div className=" inset-0 grid place-items-center"> {/* Centering container */}
             <div className="mt-auto bg-pink-500 text-white text-sm font-semibold px-6 py-4 rounded-lg shadow-lg border-2 border-pink-300">
-            💍 Forever Began: March 15, 2025            </div>
+              💑 Forever Began: {timeLeft}
+            </div>
           </div>
 
           {/* Falling Hearts */}
@@ -305,7 +328,7 @@ function LandingPage() {
         </div>
 
         <h2 className="text-3xl font-extrabold text-center text-pink-700 mb-12 flex items-center justify-center">
-           Photo Gallery
+          Wedding Photos Gallery
         </h2>
 
         {/* Carousel Layout */}
@@ -346,7 +369,6 @@ function LandingPage() {
               { image: A33 },
               { image: A34 },
               { image: A35 },
-              
 
 
             ].map((photo, index) => (
@@ -439,7 +461,7 @@ function LandingPage() {
               src={Bride}
               alt="Bride's Family"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModals(Bride)}
+              onClick={() => openModal(Bride)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">
               Bride's Family
@@ -450,7 +472,7 @@ function LandingPage() {
               src={Groom}
               alt="Groom's Family"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModals(Groom)}
+              onClick={() => openModal(Groom)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">
               Groom's Family
@@ -566,7 +588,7 @@ function LandingPage() {
               src={Tejaswi}
               alt="Wedding Ceremony Venue"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModals(Tejaswi)}
+              onClick={() => openModal(Tejaswi)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">Hotel Tejaswi Grounds</p>
 
@@ -586,7 +608,7 @@ function LandingPage() {
               src={Anand}
               alt="Sangeet Night"
               className="rounded-xl shadow-lg w-full h-auto border-4 border-pink-700"
-              onClick={() => openModals(Anand)}
+              onClick={() => openModal(Anand)}
             />
             <p className="mt-3 text-base font-medium text-pink-900">Sangeet Night(At Wedding Venue)</p>
             <a

@@ -75,15 +75,17 @@ function LandingPage() {
   const [modalImage, setModalImage] = useState("");
 
   const [showModal, setShowModal] = useState(false);
+
+  // Counts UP from the wedding date (March 15, 2025) instead of counting down to it
   useEffect(() => {
-    const endOfMarch15 = new Date(Date.UTC(2025, 2, 15, 0, 0, 0)); // March 15, 2025, 00:00 UTC
+    const startDate = new Date(Date.UTC(2025, 2, 15, 0, 0, 0)); // March 15, 2025, 00:00 UTC
 
-    const updateCountdown = () => {
+    const updateCounter = () => {
       const now = new Date().getTime();
-      const difference = endOfMarch15.getTime() - now;
+      const difference = now - startDate.getTime();
 
-      if (difference <= 0) {
-        setTimeLeft("💖 It's Wedding Time! 🎉");
+      if (difference < 0) {
+        setTimeLeft("💖 Getting Ready! 🎉");
         return;
       }
 
@@ -95,28 +97,35 @@ function LandingPage() {
       setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
     };
 
-    updateCountdown(); // Initial call
-    const interval = setInterval(updateCountdown, 1000);
+    updateCounter(); // Initial call
+    const interval = setInterval(updateCounter, 1000);
 
     return () => clearInterval(interval); // Cleanup
   }, []);
 
 
+  // Smooth footer marquee scroll using requestAnimationFrame (replaces the old duplicated setInterval version)
   useEffect(() => {
     const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
 
     let scrollAmount = 0;
-    const scrollInterval = setInterval(() => {
-      scrollAmount += 1; // Speed of scrolling
+    let animationFrameId;
+
+    const scrollStep = () => {
+      scrollAmount += 0.5; // smaller increment = smoother motion
       scrollContainer.scrollLeft = scrollAmount;
 
       // Reset scroll to create seamless loop
       if (scrollAmount >= scrollContainer.scrollWidth / 2) {
         scrollAmount = 0;
       }
-    }, 16); // Smooth scrolling at ~60fps
+      animationFrameId = requestAnimationFrame(scrollStep);
+    };
 
-    return () => clearInterval(scrollInterval);
+    animationFrameId = requestAnimationFrame(scrollStep);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
   const handleImageClick = (imageSrc) => {
@@ -136,27 +145,11 @@ function LandingPage() {
       }
     };
 
-    const interval = setInterval(checkAndLoop, 100); // Check every 100ms
+    const interval = setInterval(checkAndLoop, 50); // Tighter check for smoother looping
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
 
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-
-    let scrollAmount = 0;
-    const scrollInterval = setInterval(() => {
-      scrollAmount += 1; // Speed of scrolling
-      scrollContainer.scrollLeft = scrollAmount;
-
-      // Reset scroll to create seamless loop
-      if (scrollAmount >= scrollContainer.scrollWidth / 2) {
-        scrollAmount = 0;
-      }
-    }, 16); // Smooth scrolling at ~60fps
-
-    return () => clearInterval(scrollInterval);
-  }, []);
   const openModal = (image) => {
     setModalImage(image);
     setShowModal(true);
@@ -204,7 +197,7 @@ function LandingPage() {
 
   return (
 
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory font-sans scroll-hidden">
+    <div className="h-screen overflow-y-scroll snap-y snap-mandatory font-sans scroll-hidden scroll-smooth">
 
       {/* Section 1: Hero Section */}
       <div
@@ -233,7 +226,7 @@ function LandingPage() {
 
 
         <div className="fixed bottom-4 right-4 bg-pink-500 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg border-2 border-pink-300 ">
-          💑 Wedding in: {timeLeft}
+          💑 Forever Began: {timeLeft}
         </div>
         <div className="absolute bottom-20 left-5 text-pink-300 text-lg font-bold animate-bounce flex items-center gap-1">
           <p>Scroll Down 👇</p>
@@ -297,7 +290,7 @@ function LandingPage() {
           </div>
           <div className=" inset-0 grid place-items-center"> {/* Centering container */}
             <div className="mt-auto bg-pink-500 text-white text-sm font-semibold px-6 py-4 rounded-lg shadow-lg border-2 border-pink-300">
-              💑 Wedding in: {timeLeft}
+              💑 Forever Began: {timeLeft}
             </div>
           </div>
 
